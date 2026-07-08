@@ -2,7 +2,12 @@ import streamlit as st
 
 from google import genai
 
-myaibot = genai.Client(api_key="AIzaSyB1YeNps3ZNWaLJpGF4TpHPSGXJq1EMr3c")
+api_key = os.environ.get("GEMINI_API_KEY")
+if not api_key:
+    st.error("GEMINI_API_KEY not set")
+    st.stop()
+  
+myaibot = genai.Client(api_key=api_key)
 
 st.title("My Own GPT")
 
@@ -15,3 +20,4 @@ if st.button("Send"):
   )
 
   st.write(response.text)
+#AIzaSyBe7ia3Bx0RDhIuEHC9TaFYdhgK2kSFbgk

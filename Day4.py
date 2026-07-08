@@ -20,4 +20,3 @@ if st.button("Send"):
   )
 
   st.write(response.text)
-#AIzaSyBe7ia3Bx0RDhIuEHC9TaFYdhgK2kSFbgk

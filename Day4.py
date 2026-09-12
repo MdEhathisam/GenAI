@@ -4,7 +4,7 @@ from google import genai
 
 api_key = os.environ.get("GEMINI_API_KEY")
 if not api_key:
-    st.error("AIzaSyBpufwQ8VIL59WYkFjeN3wYVx_tyzsT5Vk")
+    st.error("AQ.Ab8RN6LQgTZbrbfLH_A64dFWLzcIa0NwLfHB2FsV9FFhVbj_WQ")
     st.stop()
 
 myaibot = genai.Client(api_key=api_key)

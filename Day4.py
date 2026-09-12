@@ -40,7 +40,8 @@ if submitted:
         try:
             with st.spinner("Thinking..."):
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    # Gemini 2.5 Flash is unavailable for newly created API projects.
+                    model="gemini-3.6-flash",
                     contents=question.strip(),
                 )
             st.write(response.text)

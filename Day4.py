@@ -20,6 +20,9 @@ st.set_page_config(page_title="My Own GPT", page_icon="💬")
 st.title("My Own GPT")
 
 api_key = get_api_key()
+if api_key:
+    # Secret stores occasionally preserve a trailing newline when pasted.
+    api_key = api_key.strip()
 if not api_key:
     st.error("Server configuration error: the Gemini API key is not configured.")
     st.stop()
@@ -43,9 +46,14 @@ if submitted:
             st.write(response.text)
         except Exception as error:
             # Keep diagnostics in private Streamlit logs; never reveal them to visitors.
+            status_code = getattr(error, "code", "unknown")
             logger.error(
-                "Gemini request failed: error_type=%s status_code=%s",
+                "Gemini request failed: error_type=%s status_code=%s detail=%s",
                 type(error).__name__,
-                getattr(error, "code", "unknown"),
+                status_code,
+                str(error),
             )
-            st.error("Unable to generate a response right now. Please try again later.")
+            st.error(
+                "Unable to generate a response right now. "
+                f"Server error code: {status_code}."
+            )

@@ -1,7 +1,11 @@
 import os
+import logging
 
 import streamlit as st
 from google import genai
+
+
+logger = logging.getLogger(__name__)
 
 
 def get_api_key() -> str | None:
@@ -37,6 +41,11 @@ if submitted:
                     contents=question.strip(),
                 )
             st.write(response.text)
-        except Exception:
-            # Do not reveal provider details or credentials to public app users.
+        except Exception as error:
+            # Keep diagnostics in private Streamlit logs; never reveal them to visitors.
+            logger.error(
+                "Gemini request failed: error_type=%s status_code=%s",
+                type(error).__name__,
+                getattr(error, "code", "unknown"),
+            )
             st.error("Unable to generate a response right now. Please try again later.")
